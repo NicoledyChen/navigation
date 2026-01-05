@@ -1,0 +1,23 @@
+nav_base:
+  env_name: navigation
+  env_config:
+    # keep aligned with scripts/examples/vagen_base/navigation/env_config.yaml
+    render_mode: vision
+    prompt_format: grounding_worldmodeling
+    use_state_reward: false
+    eval_set: base
+  # inference only needs the test split; keep sizes small for quick smoke runs
+  train_size: 0
+  test_size: 8
+
+nav_common_sense:
+  env_name: navigation
+  env_config:
+    render_mode: vision
+    prompt_format: grounding_worldmodeling
+    use_state_reward: false
+    eval_set: common_sense
+  train_size: 0
+  test_size: 8
+
+

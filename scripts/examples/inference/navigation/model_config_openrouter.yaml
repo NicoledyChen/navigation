@@ -1,0 +1,27 @@
+# Model config consumed by: python -m vagen.inference.run_inference
+# Provider implementation: vagen/inference/model_interface/routerapi
+#
+# Prereq:
+#   export OPENROUTER_API_KEY=...
+# Optional:
+#   export OPENAI_API_KEY=...    # fallback if OPENROUTER_API_KEY not set
+#
+# Notes:
+# - OpenRouter model names look like: "qwen/qwen2.5-vl-7b-instruct:free"
+# - You can set site_url/site_name for OpenRouter leaderboard attribution headers.
+
+models:
+  openrouter_qwen2_5_vl_7b_free:
+    provider: routerapi
+    model_name: qwen/qwen2.5-vl-7b-instruct:free
+
+    # generation
+    max_tokens: 256
+    temperature: 0.7
+
+    # openrouter options
+    base_url: https://openrouter.ai/api/v1
+    site_url: null
+    site_name: null
+
+

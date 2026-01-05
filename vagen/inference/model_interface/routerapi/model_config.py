@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Any, List
-from vagen.mllm_agent.model_interface.base_model_config import BaseModelConfig
+import os
+
+from vagen.inference.model_interface.base_model_config import BaseModelConfig
 
 @dataclass
 class RouterAPIModelConfig(BaseModelConfig):
@@ -27,6 +29,11 @@ class RouterAPIModelConfig(BaseModelConfig):
     # Provider identifier
     provider: str = "routerapi"
     
+    def __post_init__(self):
+        # Prefer OPENROUTER_API_KEY if provided; fall back to OPENAI_API_KEY for compatibility
+        if self.api_key is None:
+            self.api_key = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    
     def config_id(self) -> str:
         """Generate unique identifier for this configuration."""
         return f"RouterAPIModelConfig({self.model_name},max_tokens={self.max_tokens},temp={self.temperature})"
@@ -37,11 +44,7 @@ class RouterAPIModelConfig(BaseModelConfig):
         return {
             "description": "OpenRouter API for accessing various LLMs and VLMs",
             "supports_multimodal": True,
-            "supported_models": [
-                "qwen/qwen2.5-vl-3b-instruct:free",
-                "qwen/qwen2.5-vl-7b-instruct:free",
-                "qwen/qwen2.5-vl-72b-instruct:free",
-                # Additional models can be added here
-            ],
+            # OpenRouter supports many models; keep this empty to avoid blocking valid model names.
+            "supported_models": [],
             "default_model": "qwen/qwen2.5-vl-7b-instruct:free"
         }

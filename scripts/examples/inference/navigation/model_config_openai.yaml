@@ -1,0 +1,16 @@
+# Model config consumed by: python -m vagen.inference.run_inference
+# Provider implementation: vagen/inference/model_interface/openai
+#
+# Prereq:
+#   export OPENAI_API_KEY=...
+
+models:
+  gpt4o:
+    provider: openai
+    model_name: gpt-4o
+
+    # generation
+    max_tokens: 256
+    temperature: 0.7
+
+

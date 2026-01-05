@@ -1,0 +1,21 @@
+# Model config consumed by: python -m vagen.inference.run_inference
+# Provider implementation: vagen/inference/model_interface/vllm
+
+models:
+  qwen2_5_vl_3b_vllm:
+    provider: vllm
+    model_name: Qwen/Qwen2.5-VL-3B-Instruct
+
+    # generation
+    max_tokens: 256
+    temperature: 0.7
+
+    # vllm runtime
+    tensor_parallel_size: 1
+    gpu_memory_utilization: 0.8
+    dtype: bfloat16
+    enforce_eager: false
+    top_p: 0.95
+    top_k: 50
+
+

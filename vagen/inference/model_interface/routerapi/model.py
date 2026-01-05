@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from openai import OpenAI
 from PIL import Image
 
-from vagen.mllm_agent.model_interface.base_model import BaseModelInterface
+from vagen.inference.model_interface.base_model import BaseModelInterface
 from .model_config import RouterAPIModelConfig
 
 logger = logging.getLogger(__name__)

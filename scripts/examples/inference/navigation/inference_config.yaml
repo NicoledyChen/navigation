@@ -1,0 +1,24 @@
+# Configuration consumed by: python -m vagen.inference.run_inference
+
+# Server parameters (env service)
+server_url: http://localhost:5000
+server_timeout: 600
+server_max_workers: 48
+
+# Inference parameters
+batch_size: 8
+max_steps: 10
+split: test
+debug: true
+show_progress: true
+
+# Output
+output_dir: inference_outputs/navigation
+
+# WandB (note: vagen/inference/run_inference.py imports wandb at import-time)
+use_wandb: false
+wandb_project: vagen-inference
+wandb_entity: null
+val_generations_to_log_to_wandb: 0
+
+
