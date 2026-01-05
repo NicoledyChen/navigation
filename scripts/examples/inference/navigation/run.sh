@@ -1,5 +1,5 @@
-#!/bin/bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
 # Navigation inference example (no training)
 #
@@ -18,8 +18,9 @@ set -euo pipefail
 MODEL_PROVIDER="${1:-vllm}" # vllm | openai | openrouter
 PORT="${PORT:-5000}"
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-REPO_ROOT="$( cd "$SCRIPT_DIR/../../.." && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
+# scripts/examples/inference/navigation -> repo root is 4 levels up
+REPO_ROOT="$( cd "$SCRIPT_DIR/../../../.." && pwd )"
 
 export PYTHONPATH="$REPO_ROOT:${PYTHONPATH:-}"
 
@@ -30,9 +31,9 @@ mkdir -p "$DATA_DIR"
 ENV_CONFIG="$SCRIPT_DIR/env_config.yaml"
 INFER_CONFIG="$SCRIPT_DIR/inference_config.yaml"
 
-if [[ "$MODEL_PROVIDER" == "openai" ]]; then
+if [ "$MODEL_PROVIDER" = "openai" ]; then
   MODEL_CONFIG="$SCRIPT_DIR/model_config_openai.yaml"
-elif [[ "$MODEL_PROVIDER" == "openrouter" ]]; then
+elif [ "$MODEL_PROVIDER" = "openrouter" ]; then
   MODEL_CONFIG="$SCRIPT_DIR/model_config_openrouter.yaml"
 else
   MODEL_CONFIG="$SCRIPT_DIR/model_config_vllm.yaml"
