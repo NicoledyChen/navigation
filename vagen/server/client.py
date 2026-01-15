@@ -54,6 +54,15 @@ class BatchEnvClient:
             response.raise_for_status()  # Raise an exception for 4XX/5XX responses
             return response.json()
             
+        except requests.exceptions.HTTPError as e:
+            # Include response body to make server-side errors debuggable from the client logs.
+            body = None
+            try:
+                body = e.response.text if e.response is not None else None
+            except Exception:
+                body = None
+            print(f"HTTPError in _make_request: {e} body={body}")
+            raise
         except Exception as e:
             print(f"Exception in _make_request: {str(e)}")
             raise

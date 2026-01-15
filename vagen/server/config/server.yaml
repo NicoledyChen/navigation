@@ -22,7 +22,8 @@ svg:
   use_state_reward: ${use_state_reward}
 navigation:
   max_workers: 48
-  devices: [0,1,2,3]
+  # Use a single GPU by default. (AI2-THOR maps CUDA->Vulkan devices; extra indices may not exist.)
+  devices: [0]
   use_state_reward: ${use_state_reward}
 primitive_skill:
   max_workers: 48

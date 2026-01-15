@@ -277,9 +277,11 @@ class NavigationEnv(BaseEnv):
         info['env_step'] = self._current_step
         info['episode_elapsed_seconds'] = time.time() - self._episode_start_time
         info['task_success'] = success
+        info['facing_target'] = self._facing_target()
         info['last_action_success'] = self.env.last_event.metadata['lastActionSuccess']
         info["env_feedback"] ="Last action is executed successfully." if info['last_action_success'] else "Last action is not executed successfully."
         self.info = info
+        info["metrics"]["traj_metrics"]["facing_target"] = bool(info["facing_target"])
         # Update total reward
         self.total_reward += self.reward
         
@@ -323,6 +325,24 @@ class NavigationEnv(BaseEnv):
         )
         success = (dist <= self.success_threshold)
         return float(success), dist
+
+    def _facing_target(self) -> bool:
+        """
+        Check whether the agent is facing the target within a threshold (degrees).
+        """
+        agent_metadata = self.env.last_event.metadata["agent"]
+        agent_position = agent_metadata["position"]
+        agent_rotation = agent_metadata["rotation"]["y"]  # yaw
+
+        target_position = self.episode_data["target_position"]
+        dx_target = target_position["x"] - agent_position["x"]
+        dz_target = target_position["z"] - agent_position["z"]
+        angle_to_target = math.degrees(math.atan2(dx_target, dz_target))
+        relative_angle_target = (angle_to_target - agent_rotation) % 360
+        if relative_angle_target > 180:
+            relative_angle_target -= 360
+
+        return abs(relative_angle_target) <= self.config.facing_success_threshold_deg
     
     def _render(self, init_obs=True):
         """Render the environment observation.

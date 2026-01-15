@@ -265,8 +265,11 @@ class NavigationService(BaseService):
             env_ids = list(self.environments.keys())
         
         # Define worker function
-        def close_single_env(env_id):      
-            env = self.environments[env_id]
+        def close_single_env(env_id):
+            # Best-effort: env may not exist if creation failed earlier.
+            env = self.environments.get(env_id)
+            if env is None:
+                return None
             env.close()
             return None
             
@@ -286,4 +289,4 @@ class NavigationService(BaseService):
         for env_id in env_ids:
             self.environments.pop(env_id, None)
             self.env_configs.pop(env_id, None)
-            self.device_status.pop(env_id, None)
+            # device_status keys are device ids, not env ids; do not pop here.

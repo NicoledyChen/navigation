@@ -18,6 +18,7 @@ class NavigationEnvConfig(BaseEnvConfig):
     prompt_format: str = "grounding_worldmodeling" 
     success_threshold: float = 1.5
     step_length: float = 0.5
+    facing_success_threshold_deg: float = 30.0
     # "free_think", "no_think", "grounding", "worldmodeling", "grounding_worldmodeling"
     
     
