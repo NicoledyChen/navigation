@@ -13,10 +13,10 @@
 models:
   openrouter_qwen2_5_vl_7b_free:
     provider: routerapi
-    model_name: qwen/qwen2.5-vl-7b-instruct:free
+    model_name: qwen/qwen3-vl-8b-instruct
 
     # generation
-    max_tokens: 256
+    max_tokens: 25600
     temperature: 0.7
 
     # openrouter options
