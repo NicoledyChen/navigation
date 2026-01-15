@@ -417,7 +417,7 @@ class InferenceRolloutService(BaseRollout):
         # Close environments through service
         if self.envs:
             try:
-                self.env_client.close_batch(list(self.envs.keys()))
+            self.env_client.close_batch(list(self.envs.keys()))
             except Exception as e:
                 # Best-effort cleanup: if env creation failed earlier, server may not know these IDs.
                 if self.debug:

@@ -140,13 +140,13 @@ if __name__ == "__main__":
     # Optionally load the dataset and print examples
     # Note: train/test parquet may be absent if train_size/test_size is 0.
     if os.path.exists(train_path):
-        train_dataset = load_dataset('parquet', data_files={"train": train_path}, split="train")
+    train_dataset = load_dataset('parquet', data_files={"train": train_path}, split="train")
         for i in range(min(2, len(train_dataset))):
-            print(train_dataset[i])
-            env_name = train_dataset[i]["extra_info"]["env_name"]
-            env_config_cls = REGISTERED_ENV[env_name]["config_cls"]
+        print(train_dataset[i])
+        env_name = train_dataset[i]["extra_info"]["env_name"]
+        env_config_cls = REGISTERED_ENV[env_name]["config_cls"]
             env_config = env_config_cls(**train_dataset[i]["extra_info"]["env_config"])
-            print(env_config.config_id())
+        print(env_config.config_id())
     else:
         print(f"Train parquet not found at {train_path}; skipping train preview.")
 
@@ -154,9 +154,9 @@ if __name__ == "__main__":
         test_dataset = load_dataset('parquet', data_files={"test": test_path}, split="test")
         for i in range(min(2, len(test_dataset))):
             print(test_dataset[i])
-            env_name = test_dataset[i]["extra_info"]["env_name"]
-            env_config_cls = REGISTERED_ENV[env_name]["config_cls"]
+        env_name = test_dataset[i]["extra_info"]["env_name"]
+        env_config_cls = REGISTERED_ENV[env_name]["config_cls"]
             env_config = env_config_cls(**test_dataset[i]["extra_info"]["env_config"])
-            print(env_config.config_id())
+        print(env_config.config_id())
     else:
         print(f"Test parquet not found at {test_path}; skipping test preview.")

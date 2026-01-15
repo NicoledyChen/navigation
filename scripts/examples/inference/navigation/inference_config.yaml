@@ -7,13 +7,15 @@ server_max_workers: 48
 
 # Inference parameters
 batch_size: 8
-max_steps: 10
+max_steps: 30
 split: test
 debug: true
 show_progress: true
 
 # Output
 output_dir: inference_outputs/navigation
+save_outputs: true
+print_outputs: true
 
 # WandB (note: vagen/inference/run_inference.py imports wandb at import-time)
 use_wandb: false

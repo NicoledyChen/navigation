@@ -8,7 +8,7 @@ REGISTERED_MODEL: Dict[str, Dict[str, Any]] = {}
 # We register only the providers that can be imported in the current environment.
 
 try:
-    from .vllm import VLLMModelInterface, VLLMModelConfig
+from .vllm import VLLMModelInterface, VLLMModelConfig
 
     REGISTERED_MODEL["vllm"] = {
         "model_cls": VLLMModelInterface,

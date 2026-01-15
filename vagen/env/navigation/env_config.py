@@ -1,5 +1,6 @@
 from vagen.env.base.base_env_config import BaseEnvConfig
 from dataclasses import dataclass, field, fields
+from typing import Optional
 
 @dataclass
 class NavigationEnvConfig(BaseEnvConfig):
@@ -19,6 +20,7 @@ class NavigationEnvConfig(BaseEnvConfig):
     success_threshold: float = 1.5
     step_length: float = 0.5
     facing_success_threshold_deg: float = 30.0
+    system_prompt_override: Optional[str] = None
     # "free_think", "no_think", "grounding", "worldmodeling", "grounding_worldmodeling"
     
     

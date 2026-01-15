@@ -12,7 +12,7 @@ from typing import Any, Dict
 REGISTERED_ENV: Dict[str, Dict[str, Any]] = {}
 
 try:
-    from .sokoban import SokobanEnv, SokobanEnvConfig, SokobanService, SokobanServiceConfig
+from .sokoban import SokobanEnv, SokobanEnvConfig, SokobanService, SokobanServiceConfig
 
     REGISTERED_ENV["sokoban"] = {
         "env_cls": SokobanEnv,

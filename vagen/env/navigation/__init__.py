@@ -15,6 +15,6 @@ except ImportError:
     NavigationEnv = None  # type: ignore
 
 try:
-    from .service import NavigationService
+from .service import NavigationService
 except ImportError:
     NavigationService = None  # type: ignore

@@ -265,7 +265,7 @@ class NavigationService(BaseService):
             env_ids = list(self.environments.keys())
         
         # Define worker function
-        def close_single_env(env_id):
+        def close_single_env(env_id):      
             # Best-effort: env may not exist if creation failed earlier.
             env = self.environments.get(env_id)
             if env is None:

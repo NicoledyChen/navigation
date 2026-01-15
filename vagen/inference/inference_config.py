@@ -24,6 +24,8 @@ class InferenceConfig:
     
     # Output configuration
     output_dir: str = "inference_outputs"
+    save_outputs: bool = False
+    print_outputs: bool = False
     
     # WandB configuration
     use_wandb: bool = True
