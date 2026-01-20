@@ -2,7 +2,6 @@ import os
 import sys
 import argparse
 import logging
-import json
 import yaml
 import wandb
 import pandas as pd
@@ -117,29 +116,6 @@ def main():
             service.reset(env_configs)
             service.run(max_steps=inference_config.get('max_steps', 10))
             results = service.recording_to_log()
-            
-            # Optionally save outputs to disk
-            if inference_config.get('save_outputs', False):
-                output_dir = inference_config.get('output_dir', 'inference_outputs')
-                os.makedirs(output_dir, exist_ok=True)
-                file_stem = f"{model_name}_{args.wandb_path_name}_outputs"
-                output_path = os.path.join(output_dir, f"{file_stem}.jsonl")
-                with open(output_path, "w", encoding="utf-8") as f:
-                    for item in results:
-                        f.write(json.dumps({
-                            "env_id": item.get("env_id"),
-                            "config_id": item.get("config_id"),
-                            "metrics": item.get("metrics"),
-                            "output_str": item.get("output_str"),
-                            "image_count": len(item.get("image_data") or []),
-                        }, ensure_ascii=False) + "\n")
-                print(f"Saved outputs to {output_path}")
-            
-            # Optionally print outputs to console
-            if inference_config.get('print_outputs', False):
-                for item in results:
-                    print(f"\n===== Output for {item.get('env_id')} =====")
-                    print(item.get("output_str"))
             
             # Log results to wandb (using the combined logging function)
             if inference_config.get('use_wandb', True):

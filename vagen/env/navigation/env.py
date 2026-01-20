@@ -411,10 +411,8 @@ class NavigationEnv(BaseEnv):
             add_example=True  # Always true for system prompt
         )
         
-        base_prompt = self.config.get("system_prompt_override", None)
-        if base_prompt is None:
-            base_prompt = system_prompt(format=self.config.prompt_format)
-        return base_prompt + '\n' + format_prompt_text
+    
+        return system_prompt(format=self.config.prompt_format) + '\n' + format_prompt_text
     
     def close(self):
         """Close the environment."""
