@@ -85,13 +85,13 @@ class BatchEnvServer:
         def create_environments_batch():
             """Create environments endpoint - implements BaseService interface"""
             try:
-            data = request.json
-            if not data or 'ids2configs' not in data:
-                return jsonify({"error": "Missing required parameter: ids2configs"}), 400
-                    
-            ids2configs = data['ids2configs']
-            self._create_environments_batch(ids2configs)
-            return jsonify({"success": True}), 200
+                data = request.json
+                if not data or 'ids2configs' not in data:
+                    return jsonify({"error": "Missing required parameter: ids2configs"}), 400
+                        
+                ids2configs = data['ids2configs']
+                self._create_environments_batch(ids2configs)
+                return jsonify({"success": True}), 200
             except Exception as e:
                 return _json_error(e, 500)
         
@@ -99,13 +99,13 @@ class BatchEnvServer:
         def reset_batch():
             """Reset multiple environments endpoint"""
             try:
-            data = request.json
-            if not data or 'ids2seeds' not in data:
-                return jsonify({"error": "Missing required parameter: ids2seeds"}), 400
-                
-            ids2seeds = data['ids2seeds']
-            results = self._reset_batch(ids2seeds)
-            return jsonify({"results": results}), 200
+                data = request.json
+                if not data or 'ids2seeds' not in data:
+                    return jsonify({"error": "Missing required parameter: ids2seeds"}), 400
+                    
+                ids2seeds = data['ids2seeds']
+                results = self._reset_batch(ids2seeds)
+                return jsonify({"results": results}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -113,13 +113,13 @@ class BatchEnvServer:
         def step_batch():
             """Step multiple environments endpoint"""
             try:
-            data = request.json
-            if not data or 'ids2actions' not in data:
-                return jsonify({"error": "Missing required parameter: ids2actions"}), 400
-                
-            ids2actions = data['ids2actions']
-            results = self._step_batch(ids2actions)
-            return jsonify({"results": results}), 200
+                data = request.json
+                if not data or 'ids2actions' not in data:
+                    return jsonify({"error": "Missing required parameter: ids2actions"}), 400
+                    
+                ids2actions = data['ids2actions']
+                results = self._step_batch(ids2actions)
+                return jsonify({"results": results}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -127,13 +127,13 @@ class BatchEnvServer:
         def compute_reward_batch():
             """Compute reward for multiple environments endpoint"""
             try:
-            data = request.json
-            if not data or 'env_ids' not in data:
-                return jsonify({"error": "Missing required parameter: env_ids"}), 400
-                
-            env_ids = data['env_ids']
-            rewards = self._compute_reward_batch(env_ids)
-            return jsonify({"rewards": rewards}), 200
+                data = request.json
+                if not data or 'env_ids' not in data:
+                    return jsonify({"error": "Missing required parameter: env_ids"}), 400
+                    
+                env_ids = data['env_ids']
+                rewards = self._compute_reward_batch(env_ids)
+                return jsonify({"rewards": rewards}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -141,13 +141,13 @@ class BatchEnvServer:
         def get_system_prompts_batch():
             """Get system prompts for multiple environments endpoint"""
             try:
-            data = request.json
-            if not data or 'env_ids' not in data:
-                return jsonify({"error": "Missing required parameter: env_ids"}), 400
-                
-            env_ids = data['env_ids']
-            prompts = self._get_system_prompts_batch(env_ids)
-            return jsonify({"system_prompts": prompts}), 200
+                data = request.json
+                if not data or 'env_ids' not in data:
+                    return jsonify({"error": "Missing required parameter: env_ids"}), 400
+                    
+                env_ids = data['env_ids']
+                prompts = self._get_system_prompts_batch(env_ids)
+                return jsonify({"system_prompts": prompts}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -155,13 +155,13 @@ class BatchEnvServer:
         def close_batch():
             """Close multiple environments endpoint"""
             try:
-            data = request.json
-            if not data or 'env_ids' not in data:
-                return jsonify({"error": "Missing required parameter: env_ids"}), 400
-                
-            env_ids = data['env_ids']
-            self._close_batch(env_ids)
-            return jsonify({"status": "success"}), 200
+                data = request.json
+                if not data or 'env_ids' not in data:
+                    return jsonify({"error": "Missing required parameter: env_ids"}), 400
+                    
+                env_ids = data['env_ids']
+                self._close_batch(env_ids)
+                return jsonify({"status": "success"}), 200
             except Exception as e:
                 return _json_error(e, 500)
         
@@ -169,14 +169,14 @@ class BatchEnvServer:
         def reset_environment(env_id):
             """Reset single environment endpoint"""
             try:
-            data = request.json or {}
-            seed = data.get('seed')
-            results = self._reset_batch({env_id: seed})
-            if env_id not in results:
-                return jsonify({"error": f"Environment {env_id} not found"}), 404
-                    
-            obs, info = results[env_id]
-            return jsonify({"observation": obs, "info": info}), 200
+                data = request.json or {}
+                seed = data.get('seed')
+                results = self._reset_batch({env_id: seed})
+                if env_id not in results:
+                    return jsonify({"error": f"Environment {env_id} not found"}), 404
+                        
+                obs, info = results[env_id]
+                return jsonify({"observation": obs, "info": info}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -184,22 +184,22 @@ class BatchEnvServer:
         def step_environment(env_id):
             """Step single environment endpoint"""
             try:
-            data = request.json
-            if not data or 'action' not in data:
-                return jsonify({"error": "Missing required parameter: action"}), 400
-                
-            action = data['action']
-            results = self._step_batch({env_id: action})
-            if env_id not in results:
-                return jsonify({"error": f"Environment {env_id} not found"}), 404
+                data = request.json
+                if not data or 'action' not in data:
+                    return jsonify({"error": "Missing required parameter: action"}), 400
                     
-            obs, reward, done, info = results[env_id]
-            return jsonify({
-                "observation": obs,
-                "reward": reward,
-                "done": done,
-                "info": info
-            }), 200
+                action = data['action']
+                results = self._step_batch({env_id: action})
+                if env_id not in results:
+                    return jsonify({"error": f"Environment {env_id} not found"}), 404
+                        
+                obs, reward, done, info = results[env_id]
+                return jsonify({
+                    "observation": obs,
+                    "reward": reward,
+                    "done": done,
+                    "info": info
+                }), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -207,10 +207,10 @@ class BatchEnvServer:
         def compute_reward(env_id):
             """Compute reward for single environment endpoint"""
             try:
-            rewards = self._compute_reward_batch([env_id])
-            if env_id not in rewards:
-                return jsonify({"error": f"Environment {env_id} not found"}), 404
-            return jsonify({"reward": rewards[env_id]}), 200
+                rewards = self._compute_reward_batch([env_id])
+                if env_id not in rewards:
+                    return jsonify({"error": f"Environment {env_id} not found"}), 404
+                return jsonify({"reward": rewards[env_id]}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -218,10 +218,10 @@ class BatchEnvServer:
         def get_system_prompt(env_id):
             """Get system prompt for single environment endpoint"""
             try:
-            prompts = self._get_system_prompts_batch([env_id])
-            if env_id not in prompts:
-                return jsonify({"error": f"Environment {env_id} not found"}), 404
-            return jsonify({"system_prompt": prompts[env_id]}), 200
+                prompts = self._get_system_prompts_batch([env_id])
+                if env_id not in prompts:
+                    return jsonify({"error": f"Environment {env_id} not found"}), 404
+                return jsonify({"system_prompt": prompts[env_id]}), 200
             except Exception as e:
                 return _json_error(e, 500)
                 
@@ -229,8 +229,8 @@ class BatchEnvServer:
         def close_environment(env_id):
             """Close single environment endpoint"""
             try:
-            self._close_batch([env_id])
-            return jsonify({"status": "success"}), 200
+                self._close_batch([env_id])
+                return jsonify({"status": "success"}), 200
             except Exception as e:
                 return _json_error(e, 500)
     
